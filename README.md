@@ -1,6 +1,6 @@
 # Rosbridge-UI
 
-![](/home/wei/projects/Rosbridge-UI/images/ui.png)
+![](https://github.com/WeiHYDavid/Rosbridge-UI/blob/main/images/ui.png)
 
 
 
