@@ -9,8 +9,8 @@ from twisted.internet.error import CannotListenError, ReactorNotRunning
 from autobahn.twisted.websocket import WebSocketServerFactory, listenWS,WebSocketClientFactory
 log.startLogging(sys.stdout)
 
-from rosbridge_websocket import Websocket
-from bridge_ui import Ui_MainWindow
+from utils.rosbridge_websocket import Websocket
+from utils.bridge_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow,QWidget,QApplication,QHeaderView,QTableWidgetItem,QAbstractItemView,QLabel
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QThread,pyqtSignal,QObject,QTimer,QStringListModel,QRect
@@ -220,7 +220,10 @@ class MyWindows(QMainWindow,Ui_MainWindow,QWidget):
         self.server_IP_select.addItem('127.0.0.1')
 
     def websocket_server_stop(self):
-        os.kill(self.shared_data['websocket_pid'],signal.SIGUSR1)
+        try:
+            os.kill(self.shared_data['websocket_pid'],signal.SIGUSR1)
+        except:
+            pass
         time.sleep(0.5)
         self.proc_websocket.terminate()
         self.set_status_display(self.server_status, 'white', 'red', '未启动')

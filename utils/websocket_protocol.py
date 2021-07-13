@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @File     : websocket_protocol.py
-# @Project  : Sleipnir
-# @Software : PyCharm
-# @Author   : why
-# @Email    : weihaoyuan2@126.com
-# @Time     : 2020/9/25 上午10:45
 
 import rospy
 import uuid

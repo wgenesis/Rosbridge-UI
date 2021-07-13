@@ -1,4 +1,5 @@
-from __future__ import print_function
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import rospy
 import sys
 import os
@@ -17,7 +18,7 @@ log.startLogging(sys.stdout)
 
 from rosbridge_server import ClientManager
 #from rosbridge_server.autobahn_websocket import RosbridgeWebSocket
-from websocket_protocol import *
+from utils.websocket_protocol import *
 from rosbridge_server.util import get_ephemeral_port
 
 from rosbridge_library.capabilities.advertise import Advertise
