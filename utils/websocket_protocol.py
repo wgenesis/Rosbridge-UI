@@ -124,6 +124,7 @@ class RosbridgeWebSocketServer(WebSocketServerProtocol):
     max_message_size = None                 # bytes
     unregister_timeout = 10.0               # seconds
     bson_only_mode = False
+    clint_url=None
 
     # Get the glob strings and parse them as arrays.
     topics_glob = []
@@ -159,7 +160,6 @@ class RosbridgeWebSocketServer(WebSocketServerProtocol):
             self.client_id = uuid.uuid4()
             self.peer = self.transport.getPeer().host
             self.client_url=str(self.peer)+':'+str(self.transport.getPeer().port)
-            print('*'*10,self.client_url)
             client_list=self.shared_data['clients'].copy()
             client_list.append(self.client_url)
             self.shared_data['clients']=client_list.copy()
@@ -216,9 +216,10 @@ class RosbridgeWebSocketServer(WebSocketServerProtocol):
 
     #链接断开时调用
     def onClose(self, was_clean, code, reason):
-        client_list=self.shared_data['clients'].copy()
-        client_list.remove(self.client_url)
-        self.shared_data['clients']=client_list.copy()
+        client_list = self.shared_data['clients'].copy()
+        if self.client_url in client_list:
+            client_list.remove(self.client_url)
+            self.shared_data['clients']=client_list.copy()
         if not hasattr(self, 'protocol'):
             return
         cls = self.__class__
